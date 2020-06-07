@@ -4,13 +4,15 @@
   "version": "1.3.2.1",
   "description" : "Inserts the title and URL of the current page into the preferred link format, and copies the result to the clipboard, for pasting into an external document. If text is selected on the page, the selection is used in place of the page title.",
   "homepage_url": "https://github.com/shrick/copy-page-link",
-  "author": "Nicholas Hoyt",
+  "author": "Nicholas Hoyt, shrick",
 
+#ifdef FIREFOX
   "browser_specific_settings": {
     "gecko": {
-      "id": "copy-link@github.com"
+      "id": "shrick-copy-page-link@github.com"
     }
   },
+#endif
 
   "permissions": [
     "<all_urls>",
