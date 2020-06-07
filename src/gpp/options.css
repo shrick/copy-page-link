@@ -1,25 +1,48 @@
 @import 'opt-common.css';
 
 body {
+#ifdef CHROME
   padding: 0 1.5em;
   font-size: 92.5%;
+#endif
+#ifdef FIREFOX
+  padding: 0 3em;
+  font-size: 120%;
+#endif
 }
 
 .grid-formats {
+#ifdef CHROME
   grid-template-columns: 50% 50%;
   grid-row-gap: 2px;
+#endif
+#ifdef FIREFOX
+  grid-template-columns: 25% 25% 25% 25%;
+#endif
 }
 
 .grid-identifiers {
+#ifdef CHROME
   grid-template-columns: 50% 50%;
+#endif
+#ifdef FIREFOX
+  grid-template-columns: 20% auto;
+#endif
 }
 
 input[type=text] {
+#ifdef CHROME
   width: 60%;
+#endif
+#ifdef FIREFOX
+  width: 40%;
+#endif
 }
 
+#ifdef CHROME
 fieldset:first-of-type { margin-top: 0; }
 
 fieldset div label {
   line-height: 225%;
 }
+#endif

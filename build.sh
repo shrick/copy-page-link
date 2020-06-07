@@ -1,32 +1,24 @@
 #!/usr/bin/env bash
 
-GPPFILES=(
-  background
-  content
-  options
-  popup
-)
+# Create browser folders
+mkdir -p build/{chrome,firefox}
 
-# Process extension JS files: output to browser folders
-
-for FNAME in ${GPPFILES[@]}
+# Process extension JS, JSON and CSS files: output to browser folders
+for p in src/gpp/*
 do
-  gpp -DCHROME=1 -o chrome/${FNAME}.js gpp-${FNAME}.js
+  f=${p#src/gpp/}
+  gpp -DCHROME=1 -o ./build/chrome/"$f" "$p"
+  gpp -DFIREFOX=1 -o ./build/firefox/"$f" "$p"
 done
-
-for FNAME in ${GPPFILES[@]}
-do
-  gpp -DFIREFOX=1 -o firefox/${FNAME}.js gpp-${FNAME}.js
-done
-
-# Process manifest.json
-gpp -o chrome/manifest.json manifest.json
-gpp -DFIREFOX=1 -o firefox/manifest.json manifest.json
 
 # Copy shared extension files to browser folders
-
-for FNAME in ./shared/*
+for p in src/shared/*
 do
-  cp ${FNAME} ./chrome/
-  cp ${FNAME} ./firefox/
+  cp "$p" build/chrome/
+  cp "$p" build/firefox/
 done
+
+# Create archive files
+pushd build/firefox
+zip -r -FS ../copy-page-link.xpi ./*
+popd
