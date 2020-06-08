@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.3.2.2
+* Add Jira format option
+
 ## v1.3.2.1
 * Add DokuWiki format option
 
