@@ -19,8 +19,8 @@ link formats:
 | Format   | Result                                      |
 | -------- | ------------------------------------------- |
 | Markdown | `[page-title-or-selection](url)`            |
-| DokuWiki | ```[[url|page-title-or-selection]]```       |
-| Jira     | `[page-title-or-selection|url]`             |
+| DokuWiki | `[[url\|page-title-or-selection]]`           |
+| Jira     | `[page-title-or-selection\|url]`             |
 | HTML     | `<a href="url">page-title-or-selection</a>` |
 | LaTeX    | `\href{url}{page-title-or-selection}`       |
 | XML      | configured separately (see below)           |
