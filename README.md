@@ -19,8 +19,8 @@ link formats:
 | Format   | Result                                      |
 | -------- | ------------------------------------------- |
 | Markdown | `[page-title-or-selection](url)`            |
-| DokuWiki | `[[url\|page-title-or-selection]]`           |
-| Jira     | `[page-title-or-selection\|url]`             |
+| DokuWiki | `[[url\|page-title-or-selection]]`          |
+| Jira     | `[page-title-or-selection\|url]`            |
 | HTML     | `<a href="url">page-title-or-selection</a>` |
 | LaTeX    | `\href{url}{page-title-or-selection}`       |
 | XML      | configured separately (see below)           |
@@ -43,8 +43,10 @@ The structure of the XML markup, with default names/identifiers of `link`,
 ### Notification section
 
 When the Copy Page Link toolbar button is activated, the extension displays a
-popup notification window indicating the format in which the link was copied,
-and that, by default, will close automatically after a few seconds.
+popup notification window indicating the format in which the link was copied
+(as configured in the preferences).
+Another format can be choosen to be applied once.
+The notification window, by default, will close automatically after a few seconds.
 
 The 'Notification' section of the Preferences page allows you to customize
 this behavior as follows:

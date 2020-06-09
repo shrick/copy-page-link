@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.4.0
+* Add possibility to apply other format once
+
 ## v1.3.2.2
 * Add Jira format option
 

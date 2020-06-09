@@ -32,6 +32,15 @@ function notLastError () {
 }
 #endif
 
+function getBackgroundPage(handler) {
+#ifdef FIREFOX
+  browser.runtime.getBackgroundPage().then(handler, onError);
+#endif
+#ifdef CHROME
+  chrome.runtime.getBackgroundPage(handler);
+#endif
+}
+
 /*
 *   The main function of the popup is to inform the user that the page link
 *   information was copied to the clipboard and in which link format it was
@@ -63,12 +72,7 @@ function popupAction () {
       page.processActiveTab();
     }
 
-#ifdef FIREFOX
-    browser.runtime.getBackgroundPage().then(onGotBackgroundPage, onError);
-#endif
-#ifdef CHROME
-    chrome.runtime.getBackgroundPage(onGotBackgroundPage);
-#endif
+    getBackgroundPage(onGotBackgroundPage);
 
     // Update popup content and conditionally close the popup window
     // automatically after user-specified delay.
@@ -124,7 +128,23 @@ document.addEventListener("click", function (e) {
 #ifdef CHROME
     chrome.runtime.openOptionsPage(onOpened);
 #endif
+  
+  } else if (e.target.classList.contains("apply-format")) {
+    selectedFormat = e.target.id;
+
+    if (debug) console.log('Apply format "' + selectedFormat + '" clicked!');
+    
+    // Set options var and initiate processing in background script
+    function onGotBackgroundPage (page) {
+      page.options = { format: selectedFormat };
+      page.processActiveTab();
+    }    
+    getBackgroundPage(onGotBackgroundPage);
+
+    // Set the format value in popup message
+    document.getElementById('format').textContent = selectedFormat;
   }
+
 });
 
 /*
