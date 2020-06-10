@@ -69,11 +69,13 @@ function saveOptions(e) {
 
   let formats = document.getElementById('formats');
   let inputs = formats.getElementsByTagName('input');
-  let selectedFormat = null;
+  let selectedFormatId = null;
+  let selectedFormatValue = null;
 
   for (let i = 0; i < inputs.length; i++) {
     if (inputs[i].checked) {
-      selectedFormat = inputs[i].value;
+      selectedFormatId = inputs[i].id;
+      selectedFormatValue = inputs[i].value;
       break;
     }
   }
@@ -88,9 +90,10 @@ function saveOptions(e) {
     if (debug) console.log(message);
   }
 
-  if (selectedFormat) {
+  if (selectedFormatId) {
     let options = {
-      format: selectedFormat,
+      format: selectedFormatId,
+      value: selectedFormatValue,
       auto: document.getElementById('auto').checked,
       msec: document.getElementById('msec').value,
 
