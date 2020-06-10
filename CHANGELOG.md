@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v1.4.1
+* Changed style
+* Sshow name of copied format instead of id
+
 ## v1.4.0
 * Add possibility to apply other format once
 

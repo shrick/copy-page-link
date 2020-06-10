@@ -2,7 +2,7 @@
 *   popup.js
 */
 const debug = false;
-const defaultFormat = 'markdown';
+const defaultValue = 'Markdown';
 const defaultTimeout = 3000;
 
 let mouseEnterCount = 0;
@@ -32,7 +32,7 @@ function notLastError () {
 }
 #endif
 
-function getBackgroundPage(handler) {
+function getBackgroundPage (handler) {
 #ifdef FIREFOX
   browser.runtime.getBackgroundPage().then(handler, onError);
 #endif
@@ -42,23 +42,16 @@ function getBackgroundPage(handler) {
 }
 
 /*
-*   The main function of the popup is to inform the user that the page link
-*   information was copied to the clipboard and in which link format it was
-*   copied. While it does have one interactive element, the 'Change Format'
-*   button, it is not used to initiate the page link processing.
+*   The functions of the popup are to
+*   - inform the user that the page link information was copied to the clipboard,
+*   - enable the user to apply another than the configured format once and
+*   - to inform the user in which link format the page link was copied.
 *
-*   Therefore, the popup's load event is used to initiate processing, which
-*   is handled by the popupAction function.
-*
-*   This architecture is used in lieu of what typically happens: either the
-*   popup would have interactive elements that would fire events handled by
-*   the background script that determine the type of processing that should
-*   occur; or there would be no popup, in which case the toolbar button would
-*   fire the browserAction.onClicked event, passing it the active tab,
-*   likewise to be handled by the background script.
+*   The popup's load event is used to initiate processing, which is handled by
+*   the popupAction function.
 */
 function popupAction () {
-
+  
   function buttonHasFocus () {
     let button = document.getElementsByTagName('button')[0];
     return button === document.activeElement;
@@ -78,7 +71,7 @@ function popupAction () {
     // automatically after user-specified delay.
 
     // Set the format value in popup message
-    document.getElementById('format').textContent = options.format || defaultFormat;
+    document.getElementById('format').textContent = options.value || defaultValue;
 
     // Conditionally close the popup window automatically
     let auto = (typeof options.auto === 'undefined') ? true : options.auto;
@@ -130,19 +123,20 @@ document.addEventListener("click", function (e) {
 #endif
   
   } else if (e.target.classList.contains("apply-format")) {
-    selectedFormat = e.target.id;
+    selectedFormatid = e.target.id;
+    selectFormatValue = e.target.textContent;
 
-    if (debug) console.log('Apply format "' + selectedFormat + '" clicked!');
+    if (debug) console.log('Apply format "' + selectFormatValue + '" clicked!');
     
     // Set options var and initiate processing in background script
     function onGotBackgroundPage (page) {
-      page.options = { format: selectedFormat };
+      page.options = { format: selectedFormatid };
       page.processActiveTab();
     }    
     getBackgroundPage(onGotBackgroundPage);
 
     // Set the format value in popup message
-    document.getElementById('format').textContent = selectedFormat;
+    document.getElementById('format').textContent = selectFormatValue;
   }
 
 });

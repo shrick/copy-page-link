@@ -8,14 +8,20 @@
 
 <body>
   <div aria-live="polite">
-    <p>Link copied in format:</p>
-    <div id="format"></div>
+    <fieldset id="resulting-format">
+      <legend>Link copied in format</legend>
+      <div id="format"></div>
+    </fieldset>
+
     
     <fieldset id="formats">
+      <legend>Apply format once</legend>
       <div id="button"><button class="apply-format" id="markdown">Markdown</button></div>
       <div id="button"><button class="apply-format" id="dokuwiki">DokuWiki</button></div>
       <div id="button"><button class="apply-format" id="jira">Jira</button></div>
       <div id="button"><button class="apply-format" id="html">HTML</button></div>
+      <div id="button"><button class="apply-format" id="latex">LaTeX</button></div>
+      <div id="button"><button class="apply-format" id="xml">XML</button></div>
     </fieldset>
 
     <div id="button">
